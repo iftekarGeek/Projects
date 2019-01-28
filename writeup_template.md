@@ -13,9 +13,6 @@ The goals / steps of this project are the following:
 * Reflect on your work in a written report
 
 
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
 
 ---
 
@@ -23,25 +20,24 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+My image processing pipeline consisted of following steps:
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
-
-
-### 2. Identify potential shortcomings with your current pipeline
+1. Convert RGB image to grayscale.
+2. Apply Canny edge detection.
+3. Get the size of the image and calculate the vertices for image masking.
+4. Now apply Hough transform to detect lines
+5. Overlap the detected lines to the initial image.
 
 
-One potential shortcoming would be what would happen when ... 
+* Converted the initial image using OpenCV API cv2.cvtColor()
+* Detected the edges using canny API cv2.Canny(img, low_threshold, high_threshold)
+    low_threshold : threshold for the minimun gradient magnitude
+    high_threshold : threshold for the maximum gradient magnitude such that strong edges and noise is supporessed.
 
-Another shortcoming could be ...
+* Next step is to apply a mask to the original image. For that we need to calculate the region of the mask.
+* Region of mask is the area of the lane in which car is moving.
+* Region of mask helps to remove the unwanted objects so that the required area (Lane lines) are targeted.
+* Next step is to find the lines using Hough Transform.
+* I've modified draw_lines() to find the lines and make the pipelines on the provided image.
 
 
-### 3. Suggest possible improvements to your pipeline
-
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
